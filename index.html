@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Besura Conveyors Ltd | Premium Logistics & Travel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Root Variables */
+        :root {
+            --primary: #0056b3;
+            --secondary: #4285f4;
+            --accent: #ffcc00;
+            --accent-light: #ffe066;
+            --dark: #1a1a2e;
+            --light: #ffffff;
+            --gray: #f8f9fa;
+            --text: #3c4043;
+            --gradient-1: linear-gradient(135deg, #0056b3, #00a0ff);
+            --gradient-2: linear-gradient(135deg, #ffcc00, #ff9500);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-strong: 0 15px 40px rgba(0, 0, 0, 0.2);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            overflow-x: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Loader */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 100px;
+            height: 100px;
+            border: 10px solid rgba(0, 86, 179, 0.2);
+            border-top: 10px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(0, 86, 179, 0.3);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+        }
+
+        .custom-cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9998;
+            transition: width 0.5s, height 0.5s, border-color 0.3s;
+        }
+
+        /* Mouse active states */
+        .custom-cursor.active {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 86, 179, 0.1);
+        }
+
+        .custom-cursor-follower.active {
+            width: 0;
+            height: 0;
+            opacity: 0;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--dark);
+            line-height: 1.4;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 4rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100px;
+            height: 5px;
+            background: var(--gradient-2);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        section:hover h2::after {
+            width: 150px;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .btn {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0, 86, 179, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 86, 179, 0.4);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--gradient-2);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn-secondary {
+            background: var(--gradient-2);
+            box-shadow: 0 10px 20px rgba(255, 204, 0, 0.3);
+        }
+        
+        .btn-secondary::before {
+            background: var(--gradient-1);
+        }
+
+        .section {
+            padding: 7rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .section-divider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+
+        .section-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px;
+        }
+
+        .section-divider .shape-fill {
+            fill: var(--light);
+        }
+
+        .dark-section .section-divider .shape-fill {
+            fill: var(--dark);
+        }
+
+        .section-divider-alt {
+            transform: rotate(0);
+            top: 0;
+            bottom: auto;
+        }
+
+        /* Floating Elements */
+        .floating {
+            animation: floating 3s ease infinite;
+            will-change: transform;
+        }
+
+        .floating-slow {
+            animation: floating 5s ease infinite;
+        }
+
+        .floating-delayed {
+            animation: floating 4s ease infinite 1s;
+        }
+
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, 15px); }
+            100% { transform: translate(0, -0px); }
+        }
+
+        /* Parallax elements */
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .parallax-shape {
+            position: absolute;
+            opacity: 0.1;
+        }
+
+        .shape-1 {
+            top: 20%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            border-radius: 53% 47% 52% 48% / 36% 41% 59% 64%;
+        }
+
+        .shape-2 {
+            bottom: 10%;
+            right: 10%;
+            width: 200px;
+            height: 200px;
+            background: var(--accent);
+            border-radius: 41% 59% 41% 59% / 41% 59% 41% 59%;
+        }
+
+        /* Navigation */
+        .navbar {
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            background-color: transparent;
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--primary);
+            z-index: 1001;
+        }
+
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--light);
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .hero-scroll-indicator:hover {
+            transform: translateX(-50%) translateY(-5px);
+            opacity: 1;
+        }
+
+        .scroll-icon {
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--light);
+            border-radius: 25px;
+            margin-bottom: 10px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .scroll-icon::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            background-color: var(--light);
+            border-radius: 50%;
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes scrollDown {
+            0% { transform: translateY(0); opacity: 1; }
+            80% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 0; }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--dark);
+            position: relative;
+            overflow: hidden;
+            padding-top: 150px; /* Add padding to prevent navbar overlap */
+            margin-top: 0;
+        }
+
+        .hero-content {
+            width: 50%;
+            z-index: 1;
+        }
+
+        .hero-content h1, .hero-content p {
+            color: var(--light);
+        }
+
+        .hero-content h1 {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 5px 15px rgba(255, 204, 0, 0.3);
+        }
+
+        .hero-image-container {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 70%;
+            height: 100%;
+            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1200/800') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(26, 26, 46, 0.9) 0%, rgba(26, 26, 46, 0.2) 100%);
+        }
+
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .hero-particles span {
+            position: absolute;
+            display: block;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: moveParticles 5s linear infinite;
+        }
+
+        @keyframes moveParticles {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            color: var(--light);
+        }
+
+        .stat {
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-desc {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* About Section */
+        .about {
+            position: relative;
+            background-color: var(--light);
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-image-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow-strong);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+        }
+
+        .about-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: var(--shadow);
+            z-index: 1;
+        }
+
+        .about-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-light);
+            border-radius: 50px;
+            z-index: -1;
+            transform: scale(0.9);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+        }
+
+        /* Services Section */
+        .services {
+            background: linear-gradient(135deg, #f6f9fc 0%, #eef5ff 100%);
+            position: relative;
+        }
+        
+        .services-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .services-header h2 {
+            display: inline-block;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card {
+            background-color: var(--light);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            width: 80px;
+            height: 80px;
+            margin: -60px auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-1);
+            color: white;
+            border-radius: 50%;
+            box-shadow: 0 15px 25px rgba(0, 86, 179, 0.3);
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotateY(180deg);
+        }
+
+        .service-card h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+
+        .service-card p {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-btn {
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .service-btn a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .service-btn a i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+
+        .service-btn a:hover {
+            color: var(--accent);
+        }
+
+        .service-btn a:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background-color: var(--dark);
+            color: white;
+            position: relative;
+        }
+
+        .testimonials h2, .testimonials h3 {
+            color: white;
+        }
+
+        .testimonials h2::after {
+            background: var(--gradient-2);
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .testimonials-slider {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial {
+            min-width: 100%;
+            padding: 0 1rem;
+            box-sizing: border-box;
+        }
+
+        .testimonial-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .testimonial-content::before {
+            content: '\201C';
+            position: absolute;
+            top: -40px;
+            left: 20px;
+            font-size: 120px;
+            color: var(--accent);
+            font-family: serif;
+            opacity: 0.3;
+        }
+
+        .testimonial-text {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+            background: var(--gray);
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-info h4 {
+            color: white;
+            margin-bottom: 0.2rem;
+        }
+
+        .testimonial-info p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 1rem;
+        }
+
+        .testimonial-nav button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .testimonial-nav button:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .testimonial-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+
+        .testimonial-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .testimonial-dot.active {
+            background: var(--accent);
+            transform: scale(1.3);
+        }
+
+        /* Contact Section */
+        .contact {
+            position: relative;
+            background: var(--light);
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            flex: 1;
+            background: var(--gradient-1);
+            padding: 3rem;
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/600/400') no-repeat center center;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .contact-info h3 {
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info-items {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--accent);
+        }
+
+        .contact-item div h4 {
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-item div p {
+            margin-bottom: 0;
+        }
+
+        .contact-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-social a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .contact-social a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .contact-form {
+            flex: 1.2;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e5ea;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.1);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-submit {
+            text-align: right;
+        }
+
+        /* Map Section */
+        .map {
+            height: 400px;
+            position: relative;
+        }
+
+        .map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 5rem 0 1.5rem;
+            position: relative;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4rem;
+        }
+
+        .footer-logo {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-desc {
+            max-width: 300px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            position: relative;
+            padding: 3px 0;
+        }
+
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-links a:hover::before {
+            width: 100%;
+        }
+
+        .footer-newsletter {
+            flex: 1.5;
+        }
+
+        .footer-newsletter p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+        }
+
+        .newsletter-btn {
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 0 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background: white;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-nav a:hover {
+            color: white;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 86, 179, 0.4);
+        }
+
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1s ease;
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 1s ease;
+        }
+
+        .reveal-left.active, .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.5s;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 991px) {
+            .hero-content {
+                width: 60%;
+            }
+
+            .hero-image-container {
+                width: 60%;
+            }
+
+            .about-container {
+                flex-direction: column;
+                gap: 3rem;
+            }
+
+            .contact-container {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+
+            .footer-column {
+                min-width: 200px;
+            }
+
+            .footer-newsletter {
+                flex: 0 0 100%;
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2.2rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+                transition: right 0.5s ease;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-content {
+                width: 100%;
+                text-align: center;
+                padding: 0 1rem;
+            }
+
+            .hero-image-container {
+                width: 100%;
+                opacity: 0.3;
+                clip-path: none;
+            }
+
+            .stats-container {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+
+            .stat {
+                flex: 0 0 calc(50% - 2rem);
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 3rem;
+            }
+
+            .footer-column {
+                width: 100%;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .footer-nav {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 5rem 0;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-btn {
+                width: 100%;
+                padding: 12px;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="logo">BESURA CONVEYORS</a>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="animate__animated animate__fadeInUp">Premium Logistics & Travel Solutions</h1>
+                <p class="animate__animated animate__fadeInUp animate__delay-1s">BESURA CONVEYORS LTD delivers reliable logistics, freight, and flight ticketing services across South Sudan with a decade of excellence and client-focused solutions.</p>
+                <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                    <a href="#contact" class="btn">Request a Quote</a>
+                    <a href="#services" class="btn btn-secondary" style="margin-left: 1rem;">Our Services</a>
+                </div>
+                
+                <div class="stats-container animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="stat">
+                        <div class="stat-value"><span class="counter" data-target="10">0</span>+</div>
+                        <div class="stat-desc">Years of Experience</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value"><span class="counter" data-target="500">0</span>+</div>
+                        <div class="stat-desc">Happy Clients</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value"><span class="counter" data-target="95">0</span>%</div>
+                        <div class="stat-desc">On-time Delivery</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-image-container">
+            <div class="hero-image"></div>
+        </div>
+        
+        <div class="hero-particles">
+            <!-- Generated dynamically with JS -->
+        </div>
+        
+        <a href="#about" class="hero-scroll-indicator">
+            <div class="scroll-icon"></div>
+            <span>Scroll Down</span>
+        </a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+        <div class="container about-container">
+            <div class="about-content reveal-left">
+                <h2>About Besura Conveyors</h2>
+                <p>BESURA CONVEYORS LTD (formerly Dot Transport and Travel Agencies) is a premier logistics, freight and flight ticket company established about a decade ago on the principle that <strong>Service and Quality is an Attitude</strong>.</p>
+                <p>We have built a reputation of reliability in transportation of goods and parcels locally and internationally because of our professional approach and competitive pricing. Our team of experienced professionals is dedicated to providing seamless logistics solutions tailored to meet your specific needs.</p>
+                <p>With the quality of our services that are constantly adapting, evolving and improving to meet client's demand, we have become the most preferred ticketing and logistics business partner in South Sudan.</p>
+                <a href="#services" class="btn">Explore Our Services</a>
+            </div>
+            <div class="about-image-container reveal-right">
+                <div class="about-image">
+                    <img src="/api/placeholder/600/500" alt="Besura Conveyors Team">
+                </div>
+                <div class="about-badge floating">
+                    Trusted Partner
+                </div>
+            </div>
+        </div>
+        
+        <div class="parallax-bg">
+            <div class="parallax-shape shape-1 floating-slow"></div>
+            <div class="parallax-shape shape-2 floating-delayed"></div>
+        </div>
+        
+        <div class="section-divider">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services section">
+        <div class="container">
+            <div class="services-header reveal">
+                <h2>Our Premium Services</h2>
+                <p>Comprehensive logistics and travel solutions tailored to your needs</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card reveal reveal-delay-1">
+                    <div class="service-image">
+                        <img src="/api/placeholder/600/400" alt="Freight & Logistics">
+                    </div>
+                    <div class="service-icon">
+                        <i class="fas fa-truck-moving"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Freight & Logistics</h3>
+                        <p>Fast and secure transportation of goods and parcels both locally and internationally with real-time tracking and competitive pricing.</p>
+                        <div class="service-btn">
+                            <a href="#contact">Learn More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card reveal reveal-delay-2">
+                    <div class="service-image">
+                        <img src="/api/placeholder/600/400" alt="Flight Ticketing">
+                    </div>
+                    <div class="service-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Flight Ticketing</h3>
+                        <p>Book your flights with us and enjoy competitive rates, professional service, and customized travel planning for individuals and corporate clients.</p>
+                        <div class="service-btn">
+                            <a href="#contact">Learn More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card reveal reveal-delay-3">
+                    <div class="service-image">
+                        <img src="/api/placeholder/600/400" alt="International Shipping">
+                    </div>
+                    <div class="service-icon">
+                        <i class="fas fa-globe-africa"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>International Shipping</h3>
+                        <p>Reliable international shipping services with customs handling, documentation, and door-to-door delivery options for businesses and individuals.</p>
+                        <div class="service-btn">
+                            <a href="#contact">Learn More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-divider">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section dark-section">
+        <div class="container">
+            <div class="testimonials-header reveal">
+                <h2>What Our Clients Say</h2>
+                <p>Trusted by businesses and individuals across South Sudan</p>
+            </div>
+            
+            <div class="testimonials-slider reveal">
+                <div class="testimonials-track">
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <div class="testimonial-text">
+                                "Besura Conveyors has consistently provided excellent logistics services for our business. Their attention to detail and commitment to on-time delivery has made them an invaluable partner for our operations in South Sudan."
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">
+                                    <img src="/api/placeholder/100/100" alt="Client Avatar">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Samuel Deng</h4>
+                                    <p>Business Owner</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <div class="testimonial-text">
+                                "I've been using Besura Conveyors for flight bookings for the past 3 years. Their customer service is exceptional, and they always find the best rates. I highly recommend their services to anyone looking for reliable travel arrangements."
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">
+                                    <img src="/api/placeholder/100/100" alt="Client Avatar">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Sarah Johnson</h4>
+                                    <p>Frequent Traveler</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <div class="testimonial-text">
+                                "As an international organization operating in South Sudan, we rely heavily on dependable logistics services. Besura Conveyors has been an outstanding partner, handling our freight and shipping needs with professionalism and efficiency."
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">
+                                    <img src="/api/placeholder/100/100" alt="Client Avatar">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>Michael Abara</h4>
+                                    <p>Operations Director</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-nav">
+                    <button class="testimonial-prev"><i class="fas fa-arrow-left"></i></button>
+                    <button class="testimonial-next"><i class="fas fa-arrow-right"></i></button>
+                </div>
+                
+                <div class="testimonial-indicators">
+                    <div class="testimonial-dot active"></div>
+                    <div class="testimonial-dot"></div>
+                    <div class="testimonial-dot"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-divider section-divider-alt">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+        <div class="container">
+            <div class="contact-header reveal">
+                <h2>Get In Touch</h2>
+                <p>We'd love to hear from you. Reach out to us for any inquiries.</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info reveal-left">
+                    <h3>Contact Information</h3>
+                    <p>Feel free to reach out to us using any of the contact methods below. We're always ready to assist you with your logistics and travel needs.</p>
+                    
+                    <div class="contact-info-items">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Our Location</h4>
+                                <p>Main Office, Juba, South Sudan</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h4>Phone Number</h4>
+                                <p>+211 900 000 000</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email Address</h4>
+                                <p>info@besuraconveyors.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Working Hours</h4>
+                                <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form reveal-right">
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" class="form-control">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="5" class="form-control" required></textarea>
+                        </div>
+                        
+                        <div class="form-submit">
+                            <button type="submit" class="btn">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <div class="map">
+        <iframe src="/api/placeholder/1200/400" allowfullscreen></iframe>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <a href="#" class="logo">BESURA CONVEYORS</a>
+                    </div>
+                    <p class="footer-desc">Your trusted partner in logistics and travel solutions in South Sudan and beyond.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Freight & Logistics</a></li>
+                        <li><a href="#">Flight Ticketing</a></li>
+                        <li><a href="#">International Shipping</a></li>
+                        <li><a href="#">Corporate Solutions</a></li>
+                        <li><a href="#">Door to Door Delivery</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to receive the latest news and special offers.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" class="newsletter-input" required>
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Besura Conveyors Ltd. All Rights Reserved.</p>
+                <div class="footer-nav">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script>
+        // Wait for page load
+        window.addEventListener('load', function() {
+            // Hide preloader
+            setTimeout(function() {
+                document.querySelector('.loader-container').classList.add('fade-out');
+                setTimeout(function() {
+                    document.querySelector('.loader-container').style.display = 'none';
+                }, 500);
+            }, 1500);
+            
+            // Initialize custom cursor
+            const cursor = document.querySelector('.custom-cursor');
+            const cursorFollower = document.querySelector('.custom-cursor-follower');
+            
+            document.addEventListener('mousemove', function(e) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                setTimeout(function() {
+                    cursorFollower.style.left = e.clientX + 'px';
+                    cursorFollower.style.top = e.clientY + 'px';
+                }, 100);
+            });
+            
+            document.addEventListener('mousedown', function() {
+                cursor.classList.add('active');
+                cursorFollower.classList.add('active');
+            });
+            
+            document.addEventListener('mouseup', function() {
+                cursor.classList.remove('active');
+                cursorFollower.classList.remove('active');
+            });
+            
+            // All links and buttons hover effects
+            const allLinks = document.querySelectorAll('a, button');
+            allLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    cursor.classList.add('active');
+                    cursorFollower.classList.add('active');
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    cursor.classList.remove('active');
+                    cursorFollower.classList.remove('active');
+                });
+            });
+            
+            // Create hero particles
+            const heroParticles = document.querySelector('.hero-particles');
+            for (let i = 0; i < 30; i++) {
+                const size = Math.random() * 20 + 5;
+                const particle = document.createElement('span');
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                heroParticles.appendChild(particle);
+            }
+            
+            // Counter animation
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000; // 2 seconds
+                const steps = 50;
+                const stepTime = duration / steps;
+                const increment = target / steps;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.ceil(current);
+                        setTimeout(updateCounter, stepTime);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+            });
+            
+            // Navbar scroll effect
+            const navbar = document.querySelector('.navbar');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Back to top button
+            const backToTopBtn = document.querySelector('.back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Scroll reveal animations
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            
+            function revealOnScroll() {
+                revealElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        element.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Initial check
+            
+            // Testimonials slider
+            const testimonialsTrack = document.querySelector('.testimonials-track');
+            const testimonials = document.querySelectorAll('.testimonial');
+            const nextBtn = document.querySelector('.testimonial-next');
+            const prevBtn = document.querySelector('.testimonial-prev');
+            const dots = document.querySelectorAll('.testimonial-dot');
+            
+            let currentIndex = 0;
+            
+            function goToSlide(index) {
+                if (index < 0) {
+                    index = testimonials.length - 1;
+                } else if (index >= testimonials.length) {
+                    index = 0;
+                }
+                
+                currentIndex = index;
+                testimonialsTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Update dots
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+            
+            nextBtn.addEventListener('click', () => {
+                goToSlide(currentIndex + 1);
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                goToSlide(currentIndex - 1);
+            });
+            
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', () => {
+                    goToSlide(i);
+                });
+            });
+            
+            // Auto slide testimonials
+            setInterval(() => {
+                goToSlide(currentIndex + 1);
+            }, 5000);
+            
+            // Form submission with animation
+            const contactForm = document.getElementById('contactForm');
+            const newsletterForm = document.querySelector('.newsletter-form');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Animation for form submission
+                anime({
+                    targets: '#contactForm .form-control',
+                    translateX: [
+                        {value: -10, duration: 100, easing: 'easeInOutQuad'},
+                        {value: 10, duration: 100, easing: 'easeInOutQuad'},
+                        {value: -10, duration: 100, easing: 'easeInOutQuad'},
+                        {value: 0, duration: 100, easing: 'easeInOutQuad'}
+                    ],
+                    delay: anime.stagger(50)
+                });
+                
+                // Here you would typically handle the form data and submission
+                setTimeout(() => {
+                    alert('Thank you for your message! We will get back to you soon.');
+                    this.reset();
+                }, 1000);
+            });
+            
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Animation for newsletter subscription
+                anime({
+                    targets: '.newsletter-input',
+                    width: [
+                        {value: '95%', duration: 100, easing: 'easeInOutQuad'},
+                        {value: '100%', duration: 100, easing: 'easeInOutQuad'}
+                    ],
+                    backgroundColor: [
+                        {value: '#f8f9fa', duration: 200},
+                        {value: '#ffffff', duration: 200}
+                    ]
+                });
+                
+                setTimeout(() => {
+                    alert('Thank you for subscribing to our newsletter!');
+                    this.reset();
+                }, 800);
+            });
+            
+            // Parallax effect for shapes
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const shapes = document.querySelectorAll('.parallax-shape');
+                
+                shapes.forEach(shape => {
+                    const speedFactor = 0.1;
+                    const yPos = -(scrollPosition * speedFactor);
+                    shape.style.transform = `translateY(${yPos}px)`;
+                });
+            });
+        });
+    </script>
